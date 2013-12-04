@@ -1,11 +1,11 @@
-package aritzh.libgdx.game1.core;
+package aritzh.libgdx.game1.core.input;
 
+import aritzh.libgdx.game1.core.Game;
+import aritzh.libgdx.game1.core.util.Point;
+import aritzh.libgdx.game1.core.util.Rectangle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-
-import java.awt.Point;
-import java.awt.Rectangle;
 
 /**
  * @author Aritz Lopez
@@ -14,12 +14,11 @@ import java.awt.Rectangle;
 public class InputHandler implements InputProcessor {
 
     private static final int KEY_ARRAY_SIZE = 1024;
-
     private final boolean[] keys = new boolean[KEY_ARRAY_SIZE];
     private final Pointer[] pointers = new Pointer[20];
-    private Game game;
+    private final Game game;
 
-    public InputHandler(Game game){
+    public InputHandler(Game game) {
         this.game = game;
         this.game.proxy.createPlatformInput(this);
     }
@@ -28,7 +27,7 @@ public class InputHandler implements InputProcessor {
     public boolean keyDown(int keycode) {
         keys[keycode] = true;
 
-        switch (keycode){
+        switch (keycode) {
             case Input.Keys.MENU:
                 Gdx.input.vibrate(1000);
                 return true;
@@ -36,7 +35,6 @@ public class InputHandler implements InputProcessor {
                 Gdx.app.exit();
                 return true;
         }
-
         return false;
     }
 
@@ -78,23 +76,23 @@ public class InputHandler implements InputProcessor {
         return false;
     }
 
-    public boolean isKeyDown(int keycode){
+    public boolean isKeyDown(int keycode) {
         return keycode < KEY_ARRAY_SIZE && this.keys[keycode];
     }
 
-    public boolean isPointerDown(int pointer){
-        return pointer<20 && this.pointers[pointer] != null;
+    public boolean isPointerDown(int pointer) {
+        return pointer < 20 && this.pointers[pointer] != null;
     }
 
-    public Pointer getPointer(int pointer){
+    public Pointer getPointer(int pointer) {
         return pointer < 20 ? this.pointers[pointer] : null;
     }
 
-    public boolean isPointerPressedAt(int x, int y, int width, int height){
+    public boolean isPointerPressedAt(int x, int y, int width, int height) {
         Rectangle r = new Rectangle(x, y, width, height);
-        for(Pointer p : this.pointers){
-            if(p == null) continue;
-            if(r.contains(p.getPoint())) return true;
+        for (Pointer p : this.pointers) {
+            if (p == null) continue;
+            if (r.contains(p.getPoint())) return true;
         }
         return false;
     }
@@ -122,7 +120,7 @@ public class InputHandler implements InputProcessor {
             return y;
         }
 
-        public Point getPoint(){
+        public Point getPoint() {
             return point;
         }
     }

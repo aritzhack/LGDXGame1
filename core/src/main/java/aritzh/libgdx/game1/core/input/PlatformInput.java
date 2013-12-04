@@ -1,4 +1,4 @@
-package aritzh.libgdx.game1.core;
+package aritzh.libgdx.game1.core.input;
 
 /**
  * @author Aritz Lopez
@@ -6,7 +6,7 @@ package aritzh.libgdx.game1.core;
  */
 public abstract class PlatformInput {
 
-    private InputHandler handler;
+    protected InputHandler handler;
 
     public PlatformInput(InputHandler handler){
         this.handler = handler;
