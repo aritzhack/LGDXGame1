@@ -8,12 +8,14 @@ public abstract class PlatformInput {
 
     protected InputHandler handler;
 
-    public PlatformInput(InputHandler handler){
+    public PlatformInput(InputHandler handler) {
         this.handler = handler;
     }
 
     public abstract boolean isLeftPressed();
+
     public abstract boolean isRightPressed();
+
     public abstract boolean isJumpPressed();
 
 }

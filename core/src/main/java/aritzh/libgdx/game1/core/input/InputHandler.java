@@ -98,13 +98,11 @@ public class InputHandler implements InputProcessor {
     }
 
     public static class Pointer {
-        private final int x, y, button;
+        private final int button;
         private final Point point;
 
         public Pointer(int button, int x, int y) {
             this.button = button;
-            this.x = x;
-            this.y = y;
             this.point = new Point(x, y);
         }
 
@@ -113,11 +111,11 @@ public class InputHandler implements InputProcessor {
         }
 
         public int getX() {
-            return x;
+            return this.point.getX();
         }
 
         public int getY() {
-            return y;
+            return this.point.getY();
         }
 
         public Point getPoint() {
