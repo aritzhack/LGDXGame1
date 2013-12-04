@@ -1,5 +1,6 @@
 package aritzh.libgdx.game1.core;
 
+import aritzh.libgdx.game1.core.input.InputHandler;
 import aritzh.libgdx.game1.core.screens.MainMenuScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

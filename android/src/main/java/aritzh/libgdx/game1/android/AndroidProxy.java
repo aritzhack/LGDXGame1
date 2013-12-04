@@ -1,8 +1,9 @@
 package aritzh.libgdx.game1.android;
 
-import aritzh.libgdx.game1.core.InputHandler;
-import aritzh.libgdx.game1.core.PlatformInput;
 import aritzh.libgdx.game1.core.Proxy;
+import aritzh.libgdx.game1.core.input.InputHandler;
+import aritzh.libgdx.game1.core.input.OnScreenInput;
+import aritzh.libgdx.game1.core.input.PlatformInput;
 
 /**
  * @author Aritz Lopez
@@ -17,6 +18,6 @@ public class AndroidProxy implements Proxy {
 
     @Override
     public PlatformInput createPlatformInput(InputHandler handler) {
-        return new AndroidInput(handler);
+        return new OnScreenInput(handler);
     }
 }

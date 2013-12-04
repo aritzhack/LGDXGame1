@@ -1,12 +1,12 @@
 <module rename-to='Game'>
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 
-	<source path='core'/>
-	<source path='html'/>
+	<source path='core' />
+	<source path='html' />
 
 	<public path="resources" />
 
-	<entry-point class='aritzh.libgdx.game1.html.GameHtml'/>
+	<entry-point class='aritzh.libgdx.game1.html.GameHtml' />
 	<set-configuration-property name="gdx.assetpath" value="assets" />
 	<set-configuration-property name="gdx.assetoutputpath" value="html/target/webapp" />
 </module>
