@@ -3,9 +3,11 @@ package aritzh.libgdx.game1.core.input;
 import aritzh.libgdx.game1.core.Game;
 import aritzh.libgdx.game1.core.util.Point;
 import aritzh.libgdx.game1.core.util.Rectangle;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * @author Aritz Lopez
@@ -26,15 +28,7 @@ public class InputHandler implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         keys[keycode] = true;
-
-        switch (keycode) {
-            case Input.Keys.MENU:
-                Gdx.input.vibrate(1000);
-                return true;
-            case Input.Keys.Q:
-                Gdx.app.exit();
-                return true;
-        }
+        if (keycode == Input.Keys.Q || keycode == Input.Keys.BACK) Gdx.app.exit();
         return false;
     }
 
@@ -51,8 +45,14 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        pointers[pointer] = new Pointer(button, screenX, screenY);
-        return false;
+        pointers[pointer] = new Pointer(button, this.unprojectCoord(screenX, screenY));
+        return this.game.currScreen.clickedAt(pointers[pointer]);
+    }
+
+    public Point unprojectCoord(int x, int y) {
+        Vector3 coord = new Vector3(x, y, 0);
+        this.game.currScreen.getCamera().unproject(coord);
+        return new Point((int) coord.x, (int) coord.y);
     }
 
     @Override
@@ -63,7 +63,8 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
+        this.pointers[pointer] = new Pointer(Input.Buttons.LEFT, this.unprojectCoord(screenX, screenY));
+        return true;
     }
 
     @Override
@@ -76,8 +77,11 @@ public class InputHandler implements InputProcessor {
         return false;
     }
 
-    public boolean isKeyDown(int keycode) {
-        return keycode < KEY_ARRAY_SIZE && this.keys[keycode];
+    public boolean isKeyDown(int... keycodes) {
+        for (int keycode : keycodes) {
+            if (keycode < KEY_ARRAY_SIZE && this.keys[keycode]) return true;
+        }
+        return false;
     }
 
     public boolean isPointerDown(int pointer) {
@@ -85,7 +89,10 @@ public class InputHandler implements InputProcessor {
     }
 
     public Pointer getPointer(int pointer) {
-        return pointer < 20 ? this.pointers[pointer] : null;
+        if (Gdx.app.getType() == Application.ApplicationType.Desktop && this.pointers[0] == null) {
+            return new Pointer(-1, this.unprojectCoord(Gdx.input.getX(), Gdx.input.getY()));
+        }
+        return pointer <= 20 || pointer > 0 ? this.pointers[pointer] : null;
     }
 
     public boolean isPointerPressedAt(int x, int y, int width, int height) {
@@ -106,6 +113,11 @@ public class InputHandler implements InputProcessor {
             this.point = new Point(x, y);
         }
 
+        public Pointer(int button, Point point) {
+            this.button = button;
+            this.point = point;
+        }
+
         public int getButton() {
             return button;
         }
@@ -120,6 +132,11 @@ public class InputHandler implements InputProcessor {
 
         public Point getPoint() {
             return point;
+        }
+
+        @Override
+        public String toString() {
+            return point.getX() + "x" + point.getY();
         }
     }
 }

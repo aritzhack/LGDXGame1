@@ -14,16 +14,21 @@ public class KeyboardInput extends PlatformInput {
 
     @Override
     public boolean isLeftPressed() {
-        return this.handler.isKeyDown(LEFT) || this.handler.isKeyDown(A);
+        return this.handler.isKeyDown(LEFT, A);
     }
 
     @Override
     public boolean isRightPressed() {
-        return this.handler.isKeyDown(RIGHT) || this.handler.isKeyDown(D);
+        return this.handler.isKeyDown(RIGHT, D);
     }
 
     @Override
     public boolean isJumpPressed() {
-        return this.handler.isKeyDown(SPACE) || this.handler.isKeyDown(W);
+        return this.handler.isKeyDown(SPACE, W);
+    }
+
+    @Override
+    public boolean isPausePressed() {
+        return this.handler.isKeyDown(ESCAPE);
     }
 }

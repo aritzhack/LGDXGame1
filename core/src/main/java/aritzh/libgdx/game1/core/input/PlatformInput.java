@@ -18,4 +18,6 @@ public abstract class PlatformInput {
 
     public abstract boolean isJumpPressed();
 
+    public abstract boolean isPausePressed();
+
 }

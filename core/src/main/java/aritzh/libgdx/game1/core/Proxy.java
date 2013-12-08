@@ -2,6 +2,7 @@ package aritzh.libgdx.game1.core;
 
 import aritzh.libgdx.game1.core.input.InputHandler;
 import aritzh.libgdx.game1.core.input.PlatformInput;
+import aritzh.libgdx.game1.core.screens.Renderer;
 
 /**
  * @author Aritz Lopez
@@ -12,4 +13,6 @@ public interface Proxy {
     public boolean vsync();
 
     public PlatformInput createPlatformInput(InputHandler handler);
+
+    public Renderer getRenderer(Game game);
 }

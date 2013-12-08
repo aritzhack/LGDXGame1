@@ -1,75 +1,58 @@
 package aritzh.libgdx.game1.core.screens;
 
 import aritzh.libgdx.game1.core.Game;
-import com.badlogic.gdx.Application;
+import aritzh.libgdx.game1.core.util.Rectangle;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.google.common.base.Function;
+import com.sun.istack.internal.Nullable;
 
 /**
  * @author Aritz Lopez
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class GameScreen implements Screen {
+public class GameScreen extends MyScreen {
 
-    private static final int MARGIN = 2;
+    private static final String TAG = "LGDXG1";
     private final Game game;
-    private final OrthographicCamera camera;
-    private float elapsed;
+    private final Renderer renderer;
 
     public GameScreen(final Game game) {
+        super(new OrthographicCamera());
         this.game = game;
-        this.camera = new OrthographicCamera();
+        this.renderer = this.game.proxy.getRenderer(this.game);
+
+        final Rectangle rectangle = new Rectangle((int) this.game.width - 64 - Renderer.MARGIN, (int) this.game.height - 64 - Renderer.MARGIN, 64, 64);
+        final Function<Integer, Boolean> function = new Function<Integer, Boolean>() {
+            @Override
+            public Boolean apply(@Nullable Integer button) {
+                Gdx.app.log(TAG, "Yeah!");
+                return Boolean.TRUE;
+            }
+        };
+        this.regions.add(new ClickableRegion(rectangle, function));
     }
 
     @Override
     public void render(float delta) {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) Gdx.app.exit();
-
-        elapsed += delta;
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
         this.game.batch.setProjectionMatrix(this.camera.combined);
         this.game.batch.begin();
 
-        this.game.batch.draw(this.game.texture, this.camera.viewportWidth / 2 - this.game.texture.getWidth() / 2 + 100 * (float) Math.sin(this.elapsed), this.camera.viewportHeight * 0.65f - this.game.texture.getHeight() / 2 + 100 * (float) Math.cos(this.elapsed));
-        this.game.font32.draw(this.game.batch, this.camera.viewportWidth + "x" + this.camera.viewportHeight, MARGIN * 3, this.camera.viewportHeight - MARGIN * 3);
-
-        this.game.font32.draw(this.game.batch, "Platform: " + Gdx.app.getType().toString(), MARGIN, this.game.font32.getLineHeight() * (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS ? 2 : 3));
-
-        this.printInputs();
-
-        this.game.font32.draw(this.game.batch, "MyGame - FPS: " + Gdx.graphics.getFramesPerSecond(), MARGIN, this.game.font32.getLineHeight());
+        this.renderer.renderAll(delta, true);
 
         this.game.batch.end();
     }
 
-    private void printInputs() {
-        switch (Gdx.app.getType()) {
-            case Android:
-            case iOS:
-                for (int i = 0; i < 20; i++) {
-                    if (Gdx.input.isTouched(i)) {
-                        String text = "C" + i + ": " + Gdx.input.getX(i) + ", " + Gdx.input.getY(i);
-                        final int textX = MARGIN + (i % 4) * 100;
-                        final float textY = 150 - (i / 4) * this.game.font.getLineHeight();
-                        this.game.font.draw(this.game.batch, text, textX, textY);
-                    }
-                }
-                break;
-            default:
-                this.game.font32.draw(this.game.batch, Gdx.input.getX() + "x" + Gdx.input.getY(), MARGIN, this.game.font32.getLineHeight() * 2);
-                break;
-        }
-    }
-
     @Override
     public void resize(int width, int height) {
-        camera.setToOrtho(false, width, height);
+        this.camera.setToOrtho(false, width, height);
+        this.game.width = width;
+        this.game.height = height;
     }
 
     @Override
@@ -91,4 +74,5 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
     }
+
 }

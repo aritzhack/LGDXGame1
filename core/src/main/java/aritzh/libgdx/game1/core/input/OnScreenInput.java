@@ -27,4 +27,10 @@ public class OnScreenInput extends PlatformInput {
         // TODO Get screen region for jump
         return false;
     }
+
+    @Override
+    public boolean isPausePressed() {
+        // TODO Get screen region for pause
+        return false;
+    }
 }

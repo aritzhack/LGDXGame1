@@ -1,9 +1,11 @@
 package aritzh.libgdx.game1.java;
 
+import aritzh.libgdx.game1.core.Game;
 import aritzh.libgdx.game1.core.Proxy;
 import aritzh.libgdx.game1.core.input.InputHandler;
 import aritzh.libgdx.game1.core.input.KeyboardInput;
 import aritzh.libgdx.game1.core.input.PlatformInput;
+import aritzh.libgdx.game1.core.screens.Renderer;
 
 /**
  * @author Aritz Lopez
@@ -19,5 +21,10 @@ public class DesktopProxy implements Proxy {
     @Override
     public PlatformInput createPlatformInput(InputHandler handler) {
         return new KeyboardInput(handler);
+    }
+
+    @Override
+    public Renderer getRenderer(Game game) {
+        return new DesktopRenderer(game);
     }
 }
