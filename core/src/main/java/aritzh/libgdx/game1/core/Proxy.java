@@ -2,7 +2,7 @@ package aritzh.libgdx.game1.core;
 
 import aritzh.libgdx.game1.core.input.InputHandler;
 import aritzh.libgdx.game1.core.input.PlatformInput;
-import aritzh.libgdx.game1.core.screens.Renderer;
+import aritzh.libgdx.game1.core.render.Renderer;
 
 /**
  * @author Aritz Lopez

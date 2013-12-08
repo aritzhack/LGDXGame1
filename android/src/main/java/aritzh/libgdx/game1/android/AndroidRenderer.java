@@ -1,7 +1,7 @@
 package aritzh.libgdx.game1.android;
 
 import aritzh.libgdx.game1.core.Game;
-import aritzh.libgdx.game1.core.screens.Renderer;
+import aritzh.libgdx.game1.core.render.Renderer;
 
 /**
  * @author Aritz Lopez
