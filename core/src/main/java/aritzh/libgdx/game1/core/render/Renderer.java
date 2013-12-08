@@ -7,6 +7,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * @author Aritz Lopez
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
@@ -75,6 +78,10 @@ public abstract class Renderer {
                         this.game.font.draw(this.game.batch, text, textX, textY);
                     }
                 }
+
+                this.game.font.draw(this.game.batch, "Accelerometer: X:" + this.round(Gdx.input.getAccelerometerX(), 2) , MARGIN, this.game.font.getLineHeight() + this.game.font32.getLineHeight()*2);
+                this.game.font.draw(this.game.batch, "Y:" + this.round(Gdx.input.getAccelerometerY(), 2), MARGIN + 150, this.game.font.getLineHeight() + this.game.font32.getLineHeight()*2);
+                this.game.font.draw(this.game.batch, "Z:" + this.round(Gdx.input.getAccelerometerZ(), 2), MARGIN + 200, this.game.font.getLineHeight() + this.game.font32.getLineHeight()*2);
                 break;
             default:
                 if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) this.game.font32.setColor(Color.RED);
@@ -82,5 +89,10 @@ public abstract class Renderer {
                 this.game.font32.setColor(Color.WHITE);
                 break;
         }
+    }
+
+    private BigDecimal round(float inputValue, int decimals){
+        BigDecimal ret = new BigDecimal(Float.toString(inputValue));
+        return ret.setScale(decimals, RoundingMode.HALF_UP);
     }
 }
