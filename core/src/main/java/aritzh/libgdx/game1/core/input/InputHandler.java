@@ -43,12 +43,6 @@ public class InputHandler implements InputProcessor {
         return false;
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        pointers[pointer] = new Pointer(button, this.unprojectCoord(screenX, screenY));
-        return this.game.currScreen.clickedAt(pointers[pointer]);
-    }
-
     public Point unprojectCoord(int x, int y) {
         Vector3 coord = new Vector3(x, y, 0);
         this.game.currScreen.getCamera().unproject(coord);
@@ -56,14 +50,22 @@ public class InputHandler implements InputProcessor {
     }
 
     @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        pointers[pointer] = new Pointer(button, this.unprojectCoord(screenX, screenY));
+        this.game.currScreen.getCurrGUI().touchedDown(pointers[pointer], pointer);
+        return false;
+    }
+
+    @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         pointers[pointer] = null;
-        return false;
+        return this.game.currScreen.getCurrGUI().touchedUp(new Pointer(button, this.unprojectCoord(screenX, screenY)), pointer);
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         this.pointers[pointer] = new Pointer(Input.Buttons.LEFT, this.unprojectCoord(screenX, screenY));
+        this.game.currScreen.getCurrGUI().dragged(this.pointers[pointer], pointer);
         return true;
     }
 
@@ -91,8 +93,7 @@ public class InputHandler implements InputProcessor {
     public Pointer getPointer(int pointer) {
         if (Gdx.app.getType() == Application.ApplicationType.Desktop && this.pointers[0] == null) {
             return new Pointer(-1, this.unprojectCoord(Gdx.input.getX(), Gdx.input.getY()));
-        }
-        return pointer <= 20 || pointer > 0 ? this.pointers[pointer] : null;
+        } else return pointer <= 20 || pointer > 0 ? this.pointers[pointer] : null;
     }
 
     public boolean isPointerPressedAt(int x, int y, int width, int height) {

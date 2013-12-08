@@ -14,11 +14,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class MainMenuScreen extends MyScreen {
 
     private static final int MARGIN = 6;
-    private final Game game;
 
     public MainMenuScreen(final Game game) {
-        super(new OrthographicCamera());
-        this.game = game;
+        super(game, new OrthographicCamera());
     }
 
     @Override

@@ -1,12 +1,14 @@
 package aritzh.libgdx.game1.core.screens;
 
 import aritzh.libgdx.game1.core.Game;
+import aritzh.libgdx.game1.core.input.InputHandler;
+import aritzh.libgdx.game1.core.render.Renderer;
+import aritzh.libgdx.game1.core.render.gui.ClickHandler;
+import aritzh.libgdx.game1.core.render.gui.GUIButton;
 import aritzh.libgdx.game1.core.util.Rectangle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.google.common.base.Function;
-import com.sun.istack.internal.Nullable;
 
 /**
  * @author Aritz Lopez
@@ -15,23 +17,22 @@ import com.sun.istack.internal.Nullable;
 public class GameScreen extends MyScreen {
 
     private static final String TAG = "LGDXG1";
-    private final Game game;
     private final Renderer renderer;
 
     public GameScreen(final Game game) {
-        super(new OrthographicCamera());
-        this.game = game;
+        super(game, new OrthographicCamera());
         this.renderer = this.game.proxy.getRenderer(this.game);
 
         final Rectangle rectangle = new Rectangle((int) this.game.width - 64 - Renderer.MARGIN, (int) this.game.height - 64 - Renderer.MARGIN, 64, 64);
-        final Function<Integer, Boolean> function = new Function<Integer, Boolean>() {
+
+        final ClickHandler handler = new ClickHandler() {
             @Override
-            public Boolean apply(@Nullable Integer button) {
-                Gdx.app.log(TAG, "Yeah!");
-                return Boolean.TRUE;
+            public boolean handle(InputHandler.Pointer pointer, int finger) {
+                Gdx.app.debug(TAG, "Yeah!");
+                return false;
             }
         };
-        this.regions.add(new ClickableRegion(rectangle, function));
+        this.guiElements.add(new GUIButton(this, rectangle, handler, this.game.icons[0], this.game.icons[8]));
     }
 
     @Override

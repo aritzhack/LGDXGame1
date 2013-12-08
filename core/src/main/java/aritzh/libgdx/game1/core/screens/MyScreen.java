@@ -1,22 +1,21 @@
 package aritzh.libgdx.game1.core.screens;
 
-import aritzh.libgdx.game1.core.input.InputHandler;
+import aritzh.libgdx.game1.core.Game;
+import aritzh.libgdx.game1.core.render.gui.GUI;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.google.common.collect.Lists;
-
-import java.util.List;
 
 /**
  * @author Aritz Lopez
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public abstract class MyScreen implements Screen {
+public abstract class MyScreen extends GUI implements Screen {
 
     protected final OrthographicCamera camera;
-    protected final List<ClickableRegion> regions = Lists.newArrayList();
+    protected GUI currGUI = this;
 
-    public MyScreen(OrthographicCamera camera) {
+    public MyScreen(Game game, OrthographicCamera camera) {
+        super(game);
         this.camera = camera;
     }
 
@@ -24,12 +23,7 @@ public abstract class MyScreen implements Screen {
         return camera;
     }
 
-    public boolean clickedAt(InputHandler.Pointer pointer) {
-        for (ClickableRegion region : regions) {
-            if (region.contains(pointer.getPoint())) {
-                if (region.clicked(pointer.getButton())) return true;
-            }
-        }
-        return false;
+    public GUI getCurrGUI() {
+        return currGUI;
     }
 }
