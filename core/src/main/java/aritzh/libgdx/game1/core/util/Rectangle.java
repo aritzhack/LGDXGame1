@@ -23,6 +23,26 @@ public class Rectangle {
         this(0, 0, width, height);
     }
 
+    public Rectangle(Rectangle rect) {
+        this(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public Rectangle translate(int dx, int dy) {
         return new Rectangle(this.x + dx, this.y + dx, this.width, this.height);
     }
@@ -39,19 +59,8 @@ public class Rectangle {
         return point.getX() >= this.x && point.getX() <= this.x + this.width && point.getY() >= this.y && point.getY() <= this.y + this.height;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    @Override
+    public String toString() {
+        return "[x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + "]";
     }
 }
