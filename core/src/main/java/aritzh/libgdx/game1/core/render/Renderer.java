@@ -41,7 +41,7 @@ public abstract class Renderer {
 
     public void renderHud(float delta) {
         this.game.batch.draw(this.game.icons[0], (int) this.game.width - 64 - Renderer.MARGIN, (int) this.game.height - 64 - Renderer.MARGIN, 64, 64);
-        this.game.currScreen.renderGUI();
+        this.game.currScreen.getCurrGUI().renderGUI();
     }
 
     public void renderBackground(float delta) {
