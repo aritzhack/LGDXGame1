@@ -2,6 +2,7 @@ package aritzh.libgdx.game1.core.render.gui;
 
 import aritzh.libgdx.game1.core.Game;
 import aritzh.libgdx.game1.core.input.InputHandler;
+import aritzh.libgdx.game1.core.render.gui.components.GUIElement;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -54,4 +55,11 @@ public abstract class GUI {
         }
     }
 
+    public void addGUIElement(GUIElement element){
+        this.guiElements.add(element);
+    }
+
+    public boolean scrolled(int amount) {
+        return false;
+    }
 }

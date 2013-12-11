@@ -26,4 +26,5 @@ public abstract class MyScreen extends GUI implements Screen {
     public GUI getCurrGUI() {
         return currGUI;
     }
+
 }

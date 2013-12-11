@@ -76,7 +76,7 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        return false;
+        return this.game.currScreen.scrolled(amount);
     }
 
     public boolean isKeyDown(int... keycodes) {

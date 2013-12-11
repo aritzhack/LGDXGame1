@@ -4,7 +4,7 @@ import aritzh.libgdx.game1.core.Game;
 import aritzh.libgdx.game1.core.input.InputHandler;
 import aritzh.libgdx.game1.core.render.Renderer;
 import aritzh.libgdx.game1.core.render.gui.ClickHandler;
-import aritzh.libgdx.game1.core.render.gui.GUIButton;
+import aritzh.libgdx.game1.core.render.gui.components.GUIButton;
 import aritzh.libgdx.game1.core.util.Rectangle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;

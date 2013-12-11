@@ -1,5 +1,7 @@
-package aritzh.libgdx.game1.core.render.gui;
+package aritzh.libgdx.game1.core.render.gui.components;
 
+import aritzh.libgdx.game1.core.render.gui.ClickHandler;
+import aritzh.libgdx.game1.core.render.gui.GUI;
 import aritzh.libgdx.game1.core.util.Rectangle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
