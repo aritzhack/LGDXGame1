@@ -16,23 +16,26 @@ public class Game extends com.badlogic.gdx.Game {
     public final Proxy proxy;
     public Texture texture;
     public TextureRegion[] icons;
+    public TextureRegion[] tiles;
     public SpriteBatch batch;
     public BitmapFont font;
     public BitmapFont font32;
     public InputHandler input;
     public MyScreen currScreen;
     public float width, height;
+    public static Game INSTANCE;
 
     public Game(Proxy proxy) {
         this.proxy = proxy;
-
+        Game.INSTANCE = this;
     }
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         texture = new Texture(Gdx.files.internal("libgdx-logo.png"));
-        icons = Util.getInternalAnimation("iconSheet.png", 64, 64);
+        icons = Util.getSheetTextures("iconSheet.png", 64, 64);
+        tiles = Util.getSheetTextures("tiles.png", 64, 64);
         font = new BitmapFont();
         font32 = new BitmapFont(Gdx.files.internal("arial32.fnt"), false);
         batch = new SpriteBatch();

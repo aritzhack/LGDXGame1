@@ -22,7 +22,7 @@ public class Util {
         return retList.toArray(array[0]);
     }
 
-    public static TextureRegion[] getInternalAnimation(String path, int iconWidth, int iconHeight) {
+    public static TextureRegion[] getSheetTextures(String path, int iconWidth, int iconHeight) {
         Texture iconSheet = new Texture(Gdx.files.internal(path));
         return Util.flattenArray(TextureRegion.split(iconSheet, iconWidth, iconHeight));
     }

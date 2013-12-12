@@ -15,7 +15,6 @@ public class GUIButton extends GUIElement {
 
     private final TextureRegion normal, clicked;
     private int pressed;
-    private boolean dragging;
 
     public GUIButton(GUI parent, Rectangle bounds, ClickHandler handler, TextureRegion normal, TextureRegion clicked) {
         super(parent, bounds, handler);
